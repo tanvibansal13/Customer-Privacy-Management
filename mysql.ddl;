@@ -1,0 +1,55 @@
+create database python_db_01;
+
+CREATE USER 'pydb01'@'%' IDENTIFIED BY 'jhfajl8708795';
+GRANT SELECT, INSERT, UPDATE ON python_db_01.* TO 'pydb01'@'%';
+
+create table python_db_01.gen_seq (
+    key_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    surr_key BIGINT NULL,
+    key_hash varchar(15) NULL UNIQUE,
+    INDEX (key_hash)
+);
+
+create Table python_db_01.cust_py
+(
+	cust_id BIGINT NOT NULL,
+	st_dt DATETIME NOT NULL,
+	first_name Varchar(100) NOT NULL,
+    last_name Varchar(100) NOT NULL,
+    dob CHAR(11) NULL,
+    g Char(1),
+	e_dt DATETIME,
+    image_path varchar(100),
+    PRIMARY KEY (cust_id, st_dt),
+	INDEX (cust_id),
+    INDEX (first_name, last_name)
+);
+
+create table python_db_01.subscription(
+    subs_id BIGINT,
+    ceml VARCHAR(100),
+    st_dt DATE,
+    e_dt DATE,
+    nl_id BIGINT,
+    subs_status CHAR(1), /* --- 1 FOR ACTIVE, 0 FOR CLOSED --*/
+    INDEX (subs_id),
+    INDEX (ceml, st_dt)
+);
+
+create table python_db_01.newsletter
+(
+    nl_id SMALLINT,
+st_dt DATE,
+e_dt DATE,
+nl_name VARCHAR(30),
+editor_name VARCHAR(50),
+content_type VARCHAR(40),
+INDEX (nl_id, st_dt)
+);
+
+
+insert into newsletter values (1,curdate(),'9999-12-31','product details','qq','product details');
+insert into newsletter values (2,curdate(),'9999-12-31','health wise','qq','health tips');
+insert into newsletter values (3,curdate(),'9999-12-31','career wise','qq','career tips');
+insert into newsletter values (4,curdate(),'9999-12-31','otherwise','qq','other tips');
+insert into subscription values (1,'aakashxahuja@gmail.com',curdate(),'9999-12-31',1,'1');
